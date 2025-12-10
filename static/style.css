@@ -1,0 +1,252 @@
+/* =========================================================
+   🌐 UNIVERSIDAD ANALYTICS — UI v2 (Mejorado)
+   ========================================================= */
+
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6c7785;
+
+  --primary: #0c264a;
+  --primary-light: #133b74;
+  --accent: #e63946;
+  --accent-dark: #b32a33;
+
+  --radius: 16px;
+  --pad: 22px;
+  --shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  margin: 0;
+  padding: 26px;
+  color: var(--text);
+}
+
+/* ========================= TOP BAR ========================= */
+
+.topbar {
+  background: linear-gradient(90deg, #0c264a, #e63946, #ffffff);
+  padding: 36px 26px;
+  border-radius: 20px;
+  color: white;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow);
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.topbar p {
+  margin: 6px 0 0;
+  opacity: 0.9;
+}
+
+/* ========================= LAYOUT ========================= */
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+  gap: 30px;
+}
+}
+
+/* ========================= CARDS ========================= */
+
+.card {
+  background: var(--card);
+  padding: var(--pad);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border-left: 6px solid var(--primary);
+}
+
+.card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.card p {
+  line-height: 1.6;
+}
+
+/* ========================= FORM ========================= */
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+@media (min-width: 700px) {
+  .form-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.form-row label {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.form-row input,
+.form-row select {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #cfd6e3;
+  font-size: 1rem;
+  background: #fafbff;
+  transition: 0.25s;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(43, 125, 240, 0.25);
+  background: white;
+}
+
+/* ========================= BUTTONS ========================= */
+
+.btn {
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.btn.primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn.primary:hover {
+  background: var(--primary-light);
+}
+
+.btn.accent {
+  background: var(--accent);
+  color: white;
+}
+
+.btn.accent:hover {
+  background: var(--accent-dark);
+}
+
+/* ========================= RESULTADOS ========================= */
+
+.result {
+  font-family: Consolas, monospace;
+  background: #eef1f7;
+  border: 1px solid #d4dae6;
+  padding: 18px;
+  border-radius: 14px;
+  margin-top: 12px;
+  white-space: pre-wrap;
+}
+
+.result.muted {
+  opacity: 0.8;
+}
+
+/* ========================= TABLE ========================= */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+table th,
+table td {
+  padding: 10px;
+  border-bottom: 1px solid #e0e6ef;
+}
+
+table th {
+  background: #eef2fa;
+  font-weight: 600;
+}
+
+table tr:hover {
+  background: #f7f9ff;
+}
+
+/* ========================= GRID TWO ========================= */
+
+.grid-two {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+@media (min-width: 900px) {
+  .grid-two {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+canvas {
+  border-radius: 14px;
+  background: white;
+  padding: 10px;
+  box-shadow: var(--shadow);
+}
+/* ========================= TABS UI ========================= */
+
+.tabs {
+  margin-top: 20px;
+  background: var(--card);
+  padding: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border-left: 6px solid var(--primary);
+}
+
+.tab-header {
+  display: flex;
+  border-bottom: 1px solid #dce3f1;
+  overflow-x: auto;
+}
+
+.tab-header button {
+  flex: 1;
+  padding: 16px;
+  border: none;
+  background: #f1f4fa;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--primary);
+  transition: 0.25s;
+}
+
+.tab-header button.active {
+  background: var(--primary);
+  color: white;
+}
+
+.tab-header button:hover {
+  background: #dbe2f1;
+}
+
+.tab-content {
+  padding: var(--pad);
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
