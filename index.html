@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Universidad Mayor de San Andrés- Análisis Numérico (Práctico)</title>
+  <link rel="stylesheet" href="./static/style.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Universidad Mayor de San Andrés — Análisis Numérico Práctico</h1>
+    <p class="subtitle">Facultad de Ciencias Puras y Naturales —  Ejemplos por carrera</p>
+  </header>
+
+  <main class="container">
+    <section class="hero-problematica">
+      <div class="hero-texto">
+        <h2>PROBLEMÁTICA GENERAL</h2>
+        <p>
+          La Universidad Mayor de San Andrés busca optimizar la asignación de su presupuesto anual basado en las proyecciones de matrícula estudiantil por carrera.
+          Para ello, se requiere determinar el punto de equilibrio financiero, ajustar modelos de regresión a los datos históricos de matrícula y finalmente distribuir
+          el presupuesto disponible de manera proporcional o mediante la resolución de un sistema de ecuaciones.
+        </p>
+      </div>
+
+      <div class="hero-imagen">
+        <img src="./imagenes/universidad.jpg" alt="Universidad Mayor de San Andrés" style="max-width:100%;border-radius:12px">
+      </div>
+    </section>
+
+    <!-- Tabs: pasos del proyecto -->
+    <div class="tabs" id="main-tabs">
+      <div class="tab-header">
+        <button class="tab-btn active" data-tab="tab-1">1) Punto de equilibrio</button>
+        <button class="tab-btn" data-tab="tab-2">2) Ajuste de datos</button>
+        <button class="tab-btn" data-tab="tab-3">3) Asignación presupuesto</button>
+      </div>
+
+      <div class="tab-content-wrap">
+      <section id="tab-1" class="tab-content active card">
+        <h2>1) Punto de equilibrio (Bisección / Newton-Raphson)</h2>
+        <p>
+          El punto de equilibrio se define como el nivel de matrícula en el cual los ingresos totales igualan los costos totales.
+        </p>
+
+        <div class="form-row">
+          <label>Carrera</label>
+          <select id="career-select"></select>
+          <label>Matrícula (Bs)</label>
+          <input id="price" type="number" value="350" />
+          <label>Fijo F (Bs)</label>
+          <input id="fixed" type="number" value="40000" />
+          <label>Variable V (Bs)</label>
+          <input id="var" type="number" value="120" />
+        </div>
+
+        <div class="form-row">
+          <label>Intervalo bisección [a,b]</label>
+          <input id="bisection-a" type="number" value="1" />
+          <input id="bisection-b" type="number" value="1000" />
+          <button id="run-bisection" class="btn primary">Ejecutar Bisección</button>
+          <button id="run-newton" class="btn accent">Ejecutar Newton</button>
+          <select id="compare-methods">
+            <option value="none">-- Comparar ambos --</option>
+            <option value="both">Ambos (Bisección vs Newton)</option>
+          </select>
+        </div>
+
+        <div id="eq-result" class="result"></div>
+        <div class="grid-two">
+          <div>
+            <h4>Tabla de iteraciones</h4>
+            <div id="iter-table"></div>
+          </div>
+          <div>
+            <h4>Gráfico de error por iteración</h4>
+            <canvas id="error-chart" width="400" height="240"></canvas>
+          </div>
+        </div>
+        <div id="eq-conclusion" class="result muted"></div>
+        <div class="form-row">
+          <button class="btn" id="to-tab-2">Siguiente: Ajuste de datos →</button>
+        </div>
+      </section>
+
+      <section id="tab-2" class="tab-content card">
+        <h2>2) Ajuste de datos (Regresión)</h2>
+        <div class="form-row">
+          <label>Carrera</label>
+          <select id="reg-career"></select>
+          <label>Modelo</label>
+          <select id="reg-model">
+            <option value="linear">Lineal</option>
+            <option value="poly2">Polinómica grado 2</option>
+          </select>
+          <label>Año a predecir</label>
+          <input id="next-year" type="number" />
+          <button id="run-reg" class="btn primary">Ajustar y predecir</button>
+        </div>
+
+        <div id="reg-result" class="result"></div>
+        <div class="grid-two">
+          <div>
+            <h4>Datos (históricos)</h4>
+            <pre id="reg-data"></pre>
+          </div>
+          <div>
+            <h4>Gráfico de ajuste</h4>
+            <canvas id="reg-chart" width="400" height="240"></canvas>
+          </div>
+        </div>
+        <div id="reg-conclusion" class="result muted"></div>
+        <div class="form-row">
+          <button class="btn" id="to-tab-3">Siguiente: Asignación →</button>
+          <button class="btn" id="back-to-tab-1">← Volver: Punto de equilibrio</button>
+        </div>
+      </section>
+
+      <section id="tab-3" class="tab-content card">
+        <h2>3) Asignación de presupuesto (Sistemas / Proporcional)</h2>
+        <div class="form-row">
+          <label>Matrícula (Bs)</label>
+          <input id="budget-price" type="number" value="350" />
+          <button id="use-predictions" class="btn">Cargar predicciones de ejemplo</button>
+        </div>
+
+        <div id="proj-inputs" class="proj-grid"></div>
+
+        <div class="form-row">
+          <button id="run-budget" class="btn primary">Calcular asignación proporcional</button>
+          <button id="run-system" class="btn accent">Resolver sistema (Gauss / Gauss-Seidel)</button>
+          <select id="system-method">
+            <option value="gauss">Gauss (directo)</option>
+            <option value="gs">Gauss-Seidel (iterativo)</option>
+          </select>
+        </div>
+
+        <div id="budget-result" class="result"></div>
+        <div id="system-table"></div>
+        <div id="system-conclusion" class="result muted"></div>
+        <div class="form-row">
+          <button class="btn" id="back-to-tab-2">← Volver: Ajuste de datos</button>
+        </div>
+      </section>
+      </div> <!-- /tab-content-wrap -->
+    </div> <!-- /tabs -->
+
+    <footer class="card small muted">
+      <p>Proyecto por Sara — mejoras: tablas de iteración, gráficos comparativos y conclusiones automáticas.</p>
+    </footer>
+  </main>
+
+  <script>
+    const SAMPLE = {
+      "careers": ["Biologia","Quimicas","Estadistica","Fisica","Informatica","Matematica"],
+      "years": [2018,2019,2020,2021,2022,2023,2024],
+      "data": {
+        "Biologia": {"years":[2018,2019,2020,2021,2022,2023,2024],"students":[120,130,125,140,150,155,160]},
+        "Quimicas": {"years":[2018,2019,2020,2021,2022,2023,2024],"students":[110,115,120,125,140,145,150]},
+        "Estadistica": {"years":[2018,2019,2020,2021,2022,2023,2024],"students":[80,90,95,100,110,120,130]},
+        "Fisica": {"years":[2018,2019,2020,2021,2022,2023,2024],"students":[100,105,100,110,120,125,130]},
+        "Informatica": {"years":[2018,2019,2020,2021,2022,2023,2024],"students":[100,115,130,150,170,185,200]},
+        "Matematica": {"years":[2018,2019,2020,2021,2022,2023,2024],"students":[90,95,100,110,120,125,130]}
+      },
+      "costs": {
+        "Biologia": {"F":40000,"V":120},
+        "Quimicas": {"F":45000,"V":140},
+        "Estadistica": {"F":30000,"V":100},
+        "Fisica": {"F":38000,"V":130},
+        "Informatica": {"F":30000,"V":90},
+        "Matematica": {"F":28000,"V":80}
+      }
+    };
+  </script>
+  <script src="./static/app.js"></script>
+</body>
+</html>
